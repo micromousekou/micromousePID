@@ -11,77 +11,76 @@
 #include "machine.h"
 
 
-void int_cmt0(void)
-{
+volatile int Logcounter;
+volatile long	log2[1000];
+volatile long	log3[1000];
+volatile long	log4[1000];
+volatile long	log5[1000];
+
+
 	/*****************************************************************************************
-	タイマのカウント
+	台形制御
 		
 	*****************************************************************************************/
-	timer++;
-	cnt++;
+float daikei(float V_max, float S, float a)
+{
+	int t=0;
+	t=t+timer;
+	S=V_max*t;
 	
-	
+
+
+	return 0;
+}
+
+void int_cmt0(void)
+{	
 	/*****************************************************************************************
 	PID制御
 		
 	*****************************************************************************************/
 	//各パラメータ設定---------------------------------------------------------------------------------
-	float output_R, output_L, trim_R, trim_L, targetV, Perr_R, Perr_L, Ierr_L, Ierr_R, Derr_L, Derr_R; //関数設定
-	short NR , NL;
-	Perr_R = Perr_L = 0; //誤差
-	//output_L = speed_l*100; //出力値左
-	//output_R = speed_r*100; //出力値右
-	MSP = 239; //最大モータ出力
-	
-	//MOT_CWCCW_R = MOT_R_FORWARD; //右モータ回転方向設定
-	//MOT_CWCCW_L = MOT_L_FORWARD; //左モータ回転方向設定
-						
-	//変更する必要のあるパラメータ左モータ-----------------------
-	KP_L = 0.02;//	0.02; 	//比例ゲイン左設定
-	KI_L = 0;//0.0008/1000;//1/1000; 	//積分ゲイン左設定
-	KD_L = 0;//1*1000; 	//微分ゲイン左設定
-	trim_L = 0.4;//0.379; 	//左モータトリム設定
-	
-	Perr_L = Ierr_L = Derr_L = 0;
-	//変更する必要のあるパラメータ右モータ-----------------------
-	KP_R = 0.02;//0.01; 	//比例ゲイン右設定
-	KI_R = 0;//0.0008/1000;// 1/1000; 	//積分ゲイン右設定
-	KD_R = 0;//1*1000; 	//微分ゲイン右設定
-	trim_R = 0.4;//0.379; 	//右モータトリム設定
-	
-	
-	Perr_R = Ierr_R = Derr_R = 0;
-	targetV = 3000;//2000; //目標値[rpm]
-	
-	// ---------------------------------------------------------------------------------------------------
-	
-	/*モータ制御---------------------------------------
-	for (timer=0; timer<1000;timer){
-	
-		if(timer<101){    //100ms待機時間
+	if (PID_ON==1){
+		float  trim_R, trim_L, targetV, Perr_R, Perr_L, Ierr_L, Ierr_R, Derr_L, Derr_R; //関数設定
 		
-			while(timer<100);
+		Perr_R = Perr_L = 0; //誤差
+		
+		MSP = 239; //最大モータ出力
+		
+		//MOT_CWCCW_R = MOT_R_FORWARD; //右モータ回転方向設定
+		//MOT_CWCCW_L = MOT_L_FORWARD; //左モータ回転方向設定
+							
+		//変更する必要のあるパラメータ左モータ-----------------------
+		KP_L = 0.02;//	0.02; 	//比例ゲイン左設定
+		KI_L = 0.0008/1000;	//積分ゲイン左設定
+		KD_L = 0;//1*1000; 	//微分ゲイン左設定
+		trim_L = 0.4;//0.379; 	//左モータトリム設定
+		
+		Perr_L = Ierr_L = Derr_L = 0;
+		//変更する必要のあるパラメータ右モータ-----------------------
+		KP_R = 0.02;//0.01; 	//比例ゲイン右設定
+		KI_R = 0.0008/1000;	//積分ゲイン右設定
+		KD_R = 0;//1*1000; 	//微分ゲイン右設定
+		trim_R = 0.4;//0.379;	//右モータトリム設定
+		
+		
+		Perr_R = Ierr_R = Derr_R = 0;
+		targetV = 3000;		 //目標値[rpm]
+		
+		
+		
+		// ---------------------------------------------------------------------------------------------------
+		
+		rpm_l = (speed_l*1000*60/(TIRE_DIAMETER*PI));//単位は[rpm]
+		rpm_r = (speed_r*1000*60/(TIRE_DIAMETER*PI));
+		
 			
-			NL = (short)(speed_l*1000*60/(TIRE_DIAMETER*PI));//単位は[rpm]
-			NR = (short)(speed_r*1000*60/(TIRE_DIAMETER*PI));
+		//PID制御を用いた計算----------------------------------------
+											
 			
-			log[12][timer] = NL;
-			log[13][timer] = MOT_OUT_L;
-			log[3][timer] = NR;
-			log[4][timer] = MOT_OUT_R;
-			
-				}
-		
-		MOT_POWER_ON; //モータ回転開始＆回転時のデータ取得開始
-		*/
-		
-										
-		output_L = NL;
-		output_R = NR;
-		
 		//比例要素-----(目標値 - 出力)
-		Perr_L = targetV-output_L;
-		Perr_R = -1*targetV-output_R;
+		Perr_L = targetV-rpm_l;
+		Perr_R = targetV+rpm_r;
 		
 		//積分要素-----(今までのエラー + 現在のエラー)
 		Ierr_L = Ierr_L+Perr_L;
@@ -91,9 +90,6 @@ void int_cmt0(void)
 		Derr_L = Perr_L-Derr_L;
 		Derr_R = Perr_R-Derr_R;
 		
-		//PID制御を用いた計算----------------------------------------
-		MOT_OUT_L = MSP*trim_L+KP_L*Perr_L+KI_L*Ierr_L+KD_L*Derr_L; 					
-		MOT_OUT_R = MSP*trim_R+KP_R*Perr_R+KI_R*Ierr_R+KD_R*Derr_R;
 		
 		//リミッター設定---------------------------------------------
 		if (MOT_OUT_L >239){
@@ -109,18 +105,39 @@ void int_cmt0(void)
 		if (MOT_OUT_R <0){
 			MOT_OUT_R =0;
 		}
+		
 		//-----------------------------------------------------------
 		
-		NL = (short)(speed_l*1000*60/(TIRE_DIAMETER*PI));//単位は[rpm]
-		NR = (short)(speed_r*1000*60/(TIRE_DIAMETER*PI));
+		MOT_OUT_L = MSP*trim_L+KP_L*Perr_L+KI_L*Ierr_L+KD_L*Derr_L; 					
+		MOT_OUT_R = MSP*trim_R+KP_R*Perr_R+KI_R*Ierr_R+KD_R*Derr_R;
+							
 		
-		log[12][timer] = NL;
-		log[13][timer] = MOT_OUT_L;
-		log[3][timer] = NR;
-		log[4][timer] = MOT_OUT_R;	
+		log2[Logcounter] = 1000;//rpm_l;
+		log3[Logcounter] = 2000;//MOT_OUT_L;
+		log4[Logcounter] = 3000;//rpm_r;
+		log5[Logcounter] = 4000;//MOT_OUT_R;
+		
+		Logcounter++;
+
+			}
+	
+	else{
+	Logcounter=0;
+	}
+	
+	/*****************************************************************************************
+	タイマのカウント
+		
+	*****************************************************************************************/
+	timer++;
+	cnt++;
+	
+	}
+		
+
 	
 	
-}
+
 
 void int_cmt1(void)		//センサ読み込み用り込み
 {
@@ -240,7 +257,7 @@ void int_cmt1(void)		//センサ読み込み用り込み
 	1kHzごとにログを取得
 		
 	*****************************************************************************************/
-	
+	/*
 	if(log_timer % 4 == 0 && log_flag==1 ){
 		if(log_timer < (LOG_CNT*4)){
 
@@ -261,7 +278,7 @@ void int_cmt1(void)		//センサ読み込み用り込み
 			
 		}
 	}	
-	
+	*/
 	log_timer++;
 		
 }

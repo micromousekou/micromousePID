@@ -503,3 +503,25 @@ void search_adachi(int gx, int gy)
 
 }
 
+/****************
+Map‚Ì‰Šú‰»
+*****************/
+/*
+for(char y=0;y<16;y++){
+	for(char x=0;x<16;x++){
+		Map[y][x]=0;
+	}
+}
+*/
+
+/****************
+Map‚Ìì¬
+*****************/
+/*
+for(char y=15;y>=0;y--){
+	for(char x=0;x<16;x++){
+		SCI_printf("%2x ",Map[y][x]);
+	}
+	SCI_printf("\n");
+}
+*/

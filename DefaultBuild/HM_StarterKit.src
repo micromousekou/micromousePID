@@ -1,4 +1,4 @@
-;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  22-Aug-2022 10:39:49
+;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  05-Sep-2022 10:43:24
 
 ;*** CPU TYPE ***
 
@@ -7,7 +7,6 @@
 ;*** COMMAND PARAMETER ***
 
 ;HM_StarterKit.c
-;interrupt.c
 ;-isa=rxv1
 ;-fpu
 ;-lang=c99
@@ -47,7 +46,12 @@
 		.glb	_KI_R
 		.glb	_KD_L
 		.glb	_KD_R
+		.glb	_PID_ON
 		.glb	_push_switch
+		.glb	_log2
+		.glb	_log3
+		.glb	_log4
+		.glb	_log5
 		.glb	_main
 		.glb	_init_all
 		.glb	_BEEP
@@ -57,35 +61,35 @@
 		.glb	_LED
 		.SECTION	P,CODE
 _main:
-		.STACK	_main=88
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",43
-		ADD #0FFFFFFB4H, R0
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",46
+		.STACK	_main=68
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",48
+		ADD #0FFFFFFC8H, R0
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",51
 		BSR _init_all
-L37:	; entry.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",47
-		MOV.L #00000000H, 48H[R0]
-L38:	; entry.split1
+L36:	; entry.split
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",52
+		MOV.L #00000000H, 34H[R0]
+L37:	; entry.split1
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",57
 		BSR _BEEP
-L39:	; entry.split2
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",54
+L38:	; entry.split2
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",59
 		MOV.L #_speed_r, R14
 		MOV.L #00000000H, [R14]
-L40:	; entry.split3
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",55
+L39:	; entry.split3
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",60
 		MOV.L #_speed_l, R14
 		MOV.L #00000000H, [R14]
-L41:	; entry.split4
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",58
+L40:	; entry.split4
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",63
 		MOV.L #_log_flag, R14
 		MOV.L #00000000H, [R14]
-L42:	; entry.split5
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",59
-		MOV.W #0001H, 46H[R0]
-		BRA L218
-L43:	; switch_clause_bb
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",77
+L41:	; entry.split5
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",64
+		MOV.W #0001H, 32H[R0]
+		BRA L177
+L42:	; switch_clause_bb
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",82
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -95,21 +99,21 @@ L43:	; switch_clause_bb
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L199
-L44:	; if_then_bb
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",78
+		BLT L158
+L43:	; if_then_bb
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",83
 		BSR _BEEP
-L45:	; if_then_bb.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",80
+L44:	; if_then_bb.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",85
 		MOV.L #_con_wall, R1
 		MOV.L #00000001H, 34H[R1]
-		BRA L47
-L46:	; if_then_bb116
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",115
+		BRA L46
+L45:	; if_then_bb108
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",120
 		BSR _BEEP
-		BRA L199
-L47:	; bb118.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",83
+		BRA L158
+L46:	; bb110.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",88
 		MOV.L #_sen_r, R14
 		MOV.W [R14], R1
 		SUB #08H, R0
@@ -118,8 +122,8 @@ L47:	; bb118.split
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L48:	; bb118.split6
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",84
+L47:	; bb110.split6
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",89
 		MOV.L #_sen_l, R14
 		MOV.W [R14], R1
 		SUB #08H, R0
@@ -128,8 +132,8 @@ L48:	; bb118.split6
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L49:	; bb118.split7
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",85
+L48:	; bb110.split7
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",90
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R1
 		SUB #08H, R0
@@ -138,8 +142,8 @@ L49:	; bb118.split7
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L50:	; bb118.split8
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",86
+L49:	; bb110.split8
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",91
 		MOV.L #_sen_fl, R14
 		MOV.W [R14], R1
 		SUB #08H, R0
@@ -148,8 +152,8 @@ L50:	; bb118.split8
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L51:	; bb118.split9
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",87
+L50:	; bb110.split9
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",92
 		MOV.L #_V_bat, R14
 		MOV.L [R14], R14
 		SUB #08H, R0
@@ -160,8 +164,8 @@ L51:	; bb118.split9
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L52:	; bb118.split10
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",88
+L51:	; bb110.split10
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",93
 		MOV.L #_sen_r, R1
 		MOV.W 0CH[R1], R1
 		SUB #08H, R0
@@ -170,8 +174,8 @@ L52:	; bb118.split10
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L53:	; bb118.split11
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",89
+L52:	; bb110.split11
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",94
 		MOV.L #_sen_l, R1
 		MOV.W 0CH[R1], R1
 		SUB #08H, R0
@@ -180,8 +184,8 @@ L53:	; bb118.split11
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L54:	; bb118.split12
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",90
+L53:	; bb110.split12
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",95
 		MOV.L #_sen_fr, R1
 		MOV.W 0CH[R1], R1
 		SUB #08H, R0
@@ -190,8 +194,8 @@ L54:	; bb118.split12
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L55:	; bb118.split13
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",91
+L54:	; bb110.split13
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",96
 		MOV.L #_sen_fl, R1
 		MOV.W 0CH[R1], R1
 		SUB #08H, R0
@@ -200,8 +204,8 @@ L55:	; bb118.split13
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L56:	; bb118.split14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",92
+L55:	; bb110.split14
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",97
 		MOV.L #_con_wall, R1
 		MOV.L 04H[R1], R1
 		SUB #08H, R0
@@ -212,8 +216,8 @@ L56:	; bb118.split14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L57:	; bb118.split15
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",93
+L56:	; bb110.split15
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",98
 		MOV.L #_speed_r, R14
 		MOV.L [R14], R14
 		SUB #08H, R0
@@ -224,8 +228,8 @@ L57:	; bb118.split15
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L58:	; bb118.split16
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",94
+L57:	; bb110.split16
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",99
 		MOV.L #_speed_l, R14
 		MOV.L [R14], R14
 		SUB #08H, R0
@@ -236,8 +240,8 @@ L58:	; bb118.split16
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L59:	; bb118.split17
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",96
+L58:	; bb110.split17
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",101
 		MOV.L #_degree, R14
 		FTOI [R14].L, R1
 		SUB #08H, R0
@@ -247,8 +251,8 @@ L59:	; bb118.split17
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L60:	; bb118.split18
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",97
+L59:	; bb110.split18
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",102
 		MOV.L #_ang_vel, R14
 		MOV.L [R14], R14
 		SUB #08H, R0
@@ -259,8 +263,8 @@ L60:	; bb118.split18
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L61:	; bb118.split19
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",99
+L60:	; bb110.split19
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",104
 		MOV.L #_locate_r, R14
 		SUB #08H, R0
 		MOV.L [R14], 04H[R0]
@@ -268,8 +272,8 @@ L61:	; bb118.split19
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L62:	; bb118.split20
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",100
+L61:	; bb110.split20
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",105
 		MOV.L #_locate_l, R14
 		SUB #08H, R0
 		MOV.L [R14], 04H[R0]
@@ -277,8 +281,8 @@ L62:	; bb118.split20
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L63:	; bb118.split21
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",103
+L62:	; bb110.split21
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",108
 		MOV.L #_push_switch, R14
 		MOVU.B [R14], R1
 		SUB #08H, R0
@@ -289,8 +293,8 @@ L63:	; bb118.split21
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L64:	; bb118.split22
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",104
+L63:	; bb110.split22
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",109
 		MOV.L #_push_switch, R14
 		MOVU.B [R14], R1
 		SUB #08H, R0
@@ -301,8 +305,8 @@ L64:	; bb118.split22
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L65:	; bb118.split23
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",105
+L64:	; bb110.split23
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",110
 		MOV.L #_push_switch, R14
 		MOVU.B [R14], R1
 		SUB #08H, R0
@@ -313,43 +317,43 @@ L65:	; bb118.split23
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L66:	; bb118.split24
+L65:	; bb110.split24
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00000064H, R1
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",106
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",111
 		BSR _wait_ms
-L67:	; bb118.split25
+L66:	; bb110.split25
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		SUB #04H, R0
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",108
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",113
 		MOV.L #_L29, R14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #04H, R0
-L68:	; bb118.split26
+L67:	; bb110.split26
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		SUB #04H, R0
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",109
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",114
 		MOV.L #_L30, R14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #04H, R0
-L69:	; bb118.split27
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",112
+L68:	; bb110.split27
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",117
 		BSR _IOex_SWITCH
 		MOV.L #_push_switch, R14
 		MOV.B R1, [R14]
-L70:	; bb118.split28
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",114
+L69:	; bb110.split28
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",119
 		MOV.L #_push_switch, R14
 		MOVU.B [R14], R14
 		AND #20H, R14
 		SHLR #05H, R14
 		CMP #01H, R14
-		BEQ L46
-		BRA L47
-L71:	; switch_clause_bb122
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",140
+		BEQ L45
+		BRA L46
+L70:	; switch_clause_bb114
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",145
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -359,179 +363,59 @@ L71:	; switch_clause_bb122
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L199
-L72:	; if_then_bb137
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",141
-		BSR _BEEP
-L73:	; if_then_bb137.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L #00089032H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",146
-		ITOF [R14].UW, R14
-		FMUL #40533333H, R14
-		FADD R14, R14
-		FDIV #4083126FH, R14
-		FTOI R14, R1
-		MOV.L R1, 40H[R0]
-L74:	; if_then_bb137.split29
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",147
-		MOV.L 40H[R0], R1
-		SUB #08H, R0
-		MOV.L R1, 04H[R0]
-		MOV.L #_L31, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L75:	; if_then_bb137.split30
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",153
-		MOV.L #000000EFH, 3CH[R0]
-L76:	; if_then_bb137.split31
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",155
-		ITOF 3CH[R0].L, R14
-		FMUL #3F000000H, R14
-		FCMP #4F000000H, R14
-		BLT L78
-L77:	; if_then_bb137.split31
-		FADD #0CF800000H, R14
-L78:	; if_then_bb137.split31
-		FTOI R14, R14
-		MOV.L #00088708H, R15
-		MOV.W R14, [R15]
-L79:	; if_then_bb137.split32
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",156
-		ITOF 3CH[R0].L, R14
-		FMUL #3F000000H, R14
-		FCMP #4F000000H, R14
 		BLT L81
-L80:	; if_then_bb137.split32
-		FADD #0CF800000H, R14
-L81:	; if_then_bb137.split32
-		FTOI R14, R14
-		MOV.L #0008870CH, R15
-		MOV.W R14, [R15]
-L82:	; if_then_bb137.split33
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",160
+L71:	; if_then_bb129
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",146
+		BSR _BEEP
+L72:	; if_then_bb129.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",152
+		MOV.L #_PID_ON, R14
+		MOV.L #00000001H, [R14]
+L73:	; if_then_bb129.split29
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",153
 		MOV.L #_timer, R14
 		MOV.L #00000000H, [R14]
-L83:	; if_then_bb137.split34
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",163
-		MOV.L #_timer, R14
-		MOV.L #00000000H, [R14]
-		BRA L91
-L84:	; bb154
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",165
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		CMP #64H, R14
-		BGTU L88
-L85:	; bb161
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",167
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		CMP #64H, R14
-		BLTU L85
-L86:	; bb166
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",168
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		SHLL #02H, R14
-		MOV.L #_log, R15
-		ADD R14, R15
-		MOV.L #_speed_l, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R14
-		MOV.W R14, R14
-		MOV.L R14, 0BB80H[R15]
-L87:	; bb166.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",169
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		SHLL #02H, R14
-		MOV.L #_log, R15
-		ADD R14, R15
-		MOV.L #_speed_r, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R14
-		MOV.W R14, R14
-		MOV.L R14, 0CB20H[R15]
-L88:	; if_break_bb183
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",172
-		BSET #06H, [R14].B
-L89:	; if_break_bb183.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",173
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		SHLL #02H, R14
-		MOV.L #_log, R15
-		ADD R14, R15
-		MOV.L #_speed_l, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R14
-		MOV.W R14, R14
-		MOV.L R14, 0BB80H[R15]
-L90:	; if_break_bb183.split35
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",174
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		SHLL #02H, R14
-		MOV.L #_log, R15
-		ADD R14, R15
-		MOV.L #_speed_r, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R14
-		MOV.W R14, R14
-		MOV.L R14, 0CB20H[R15]
-L91:	; bb201
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",163
+L74:	; bb131
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",155
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #03E8H, R14
-		BLTU L84
-L92:	; bb206
+		BLTU L74
+L75:	; bb136
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00088708H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",179
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",158
 		MOV.W #0000H, [R14]
-L93:	; bb206.split
+L76:	; bb136.split
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008870CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",180
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",159
 		MOV.W #0000H, [R14]
-L94:	; bb206.split36
+L77:	; bb136.split30
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",181
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",160
 		BCLR #06H, [R14].B
-L95:	; bb206.split37
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",182
+L78:	; bb136.split31
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",163
 		MOV.L #_timer, R14
 		MOV.L #00000000H, [R14]
-L96:	; bb208
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",183
+L79:	; bb138
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",164
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #03E8H, R14
-		BLTU L96
-L97:	; bb213
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",184
+		BLTU L79
+L80:	; bb143
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",165
 		BSR _BEEP
-		BRA L199
-L98:	; switch_clause_bb216
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",205
+L81:	; if_break_bb144
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",168
+		MOV.L #_PID_ON, R14
+		MOV.L #00000000H, [R14]
+		BRA L158
+L82:	; switch_clause_bb145
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",186
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -541,90 +425,86 @@ L98:	; switch_clause_bb216
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L108
-L99:	; if_then_bb231
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",206
+		BLT L158
+L83:	; if_then_bb160
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",187
 		BSR _BEEP
-L100:	; if_then_bb231.split
+L84:	; if_then_bb160.split
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		SUB #04H, R0
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",207
-		MOV.L #_L32, R14
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",189
+		MOV.L #_L31, R14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #04H, R0
-L101:	; if_then_bb231.split38
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",209
-		MOV.L #00000000H, 48H[R0]
-		BRA L107
-L102:	; bb233
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",211
-		MOV.L 48H[R0], R1
+L85:	; if_then_bb160.split32
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",191
+		MOV.L #00000000H, 34H[R0]
+		BRA L91
+L86:	; bb162
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",193
+		MOV.L 34H[R0], R1
+		SUB #08H, R0
+		MOV.L R1, 04H[R0]
+		MOV.L #_L32, R14
+		MOV.L R14, [R0]
+		BSR _SCI_printf
+		ADD #08H, R0
+L87:	; bb162.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",194
+		MOV.L #_log2, R14
+		MOV.L 34H[R0], R1
+		MOV.L [R1,R14], R1
+		SUB #08H, R0
+		MOV.L R1, 04H[R0]
+		MOV.L #_L32, R14
+		MOV.L R14, [R0]
+		BSR _SCI_printf
+		ADD #08H, R0
+L88:	; bb162.split33
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",195
+		MOV.L #_log3, R14
+		MOV.L 34H[R0], R1
+		MOV.L [R1,R14], R1
+		SUB #08H, R0
+		MOV.L R1, 04H[R0]
+		MOV.L #_L32, R14
+		MOV.L R14, [R0]
+		BSR _SCI_printf
+		ADD #08H, R0
+L89:	; bb162.split34
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",196
+		MOV.L #_log4, R14
+		MOV.L 34H[R0], R1
+		MOV.L [R1,R14], R1
+		SUB #08H, R0
+		MOV.L R1, 04H[R0]
+		MOV.L #_L32, R14
+		MOV.L R14, [R0]
+		BSR _SCI_printf
+		ADD #08H, R0
+L90:	; bb162.split35
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",197
+		MOV.L #_log5, R14
+		MOV.L 34H[R0], R1
+		MOV.L [R1,R14], R1
 		SUB #08H, R0
 		MOV.L R1, 04H[R0]
 		MOV.L #_L33, R14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L103:	; bb233.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",212
-		MOV.L 48H[R0], R1
-		SHLL #02H, R1
-		MOV.L #_log, R14
-		ADD R1, R14
-		SUB #08H, R0
-		MOV.L 0BB80H[R14], 04H[R0]
-		MOV.L #_L33, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L104:	; bb233.split39
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",213
-		MOV.L 48H[R0], R1
-		SHLL #02H, R1
-		MOV.L #_log, R14
-		ADD R1, R14
-		SUB #08H, R0
-		MOV.L 0CB20H[R14], 04H[R0]
-		MOV.L #_L33, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L105:	; bb233.split40
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",214
-		MOV.L 48H[R0], R1
-		SHLL #02H, R1
-		MOV.L #_log, R14
-		ADD R1, R14
-		SUB #08H, R0
-		MOV.L 2EE0H[R14], 04H[R0]
-		MOV.L #_L33, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L106:	; bb233.split41
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",215
-		MOV.L 48H[R0], R1
-		SHLL #02H, R1
-		MOV.L #_log, R14
-		ADD R1, R14
-		SUB #08H, R0
-		MOV.L 3E80H[R14], 04H[R0]
-		MOV.L #_L34, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-		MOV.L 48H[R0], R1
+		MOV.L 34H[R0], R1
 		ADD #01H, R1
-		MOV.L R1, 48H[R0]
-L107:	; bb254
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",209
-		MOV.L 48H[R0], R1
+		MOV.L R1, 34H[R0]
+L91:	; bb183
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",191
+		MOV.L 34H[R0], R1
 		CMP #03E8H, R1
-		BLTU L102
-		BRA L199
-L108:	; bb264
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",232
+		BLTU L86
+		BRA L158
+L92:	; switch_clause_bb190
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",215
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -634,181 +514,37 @@ L108:	; bb264
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L199
-L109:	; if_then_bb279
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",235
+		BLT L158
+L93:	; if_then_bb205
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",218
 		MOV.L #_con_wall, R1
 		MOV.L #00000001H, 34H[R1]
-L110:	; if_then_bb279.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",237
+L94:	; if_then_bb205.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",220
 		MOV.L #_timer, R14
 		MOV.L #00000000H, [R14]
-		BRA L112
-L111:	; bb280
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",239
+		BRA L96
+L95:	; bb206
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",222
 		BSR _BEEP
-L112:	; bb281
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",238
+L96:	; bb207
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",221
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #0BB8H, R14
-		BLTU L111
-L113:	; bb286
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",240
+		BLTU L95
+L97:	; bb212
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",223
 		MOV.L #_timer, R14
 		SUB #08H, R0
 		MOV.L [R14], 04H[R0]
-		MOV.L #_L35, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-		BRA L199
-L114:	; switch_clause_bb290
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",262
-		MOV.L #_sen_fr, R14
-		MOV.W [R14], R14
-		MOV.L #_sen_fl, R15
-		ADD [R15].W, R14
-		MOV.L #_sen_r, R15
-		ADD [R15].W, R14
-		MOV.L #_sen_l, R15
-		ADD [R15].W, R14
-		CMP #1F41H, R14
-		BLT L199
-L115:	; if_then_bb305
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",263
-		BSR _BEEP
-L116:	; if_then_bb305.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L #00089032H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",268
-		ITOF [R14].UW, R14
-		FMUL #40533333H, R14
-		FADD R14, R14
-		FDIV #4083126FH, R14
-		FTOI R14, R1
-		MOV.L R1, 38H[R0]
-L117:	; if_then_bb305.split42
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",269
-		MOV.L 38H[R0], R1
-		SUB #08H, R0
-		MOV.L R1, 04H[R0]
-		MOV.L #_L31, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L118:	; if_then_bb305.split43
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",275
-		MOV.L #000000EFH, 34H[R0]
-L119:	; if_then_bb305.split44
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",277
-		ITOF 34H[R0].L, R14
-		FMUL #3F0CCCCDH, R14
-		FCMP #4F000000H, R14
-		BLT L121
-L120:	; if_then_bb305.split44
-		FADD #0CF800000H, R14
-L121:	; if_then_bb305.split44
-		FTOI R14, R14
-		MOV.L #00088708H, R15
-		MOV.W R14, [R15]
-L122:	; if_then_bb305.split45
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",278
-		ITOF 34H[R0].L, R14
-		FMUL #3F0CCCCDH, R14
-		FCMP #4F000000H, R14
-		BLT L124
-L123:	; if_then_bb305.split45
-		FADD #0CF800000H, R14
-L124:	; if_then_bb305.split45
-		FTOI R14, R14
-		MOV.L #0008870CH, R15
-		MOV.W R14, [R15]
-L125:	; if_then_bb305.split46
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",280
-		BCLR #05H, [R14].B
-L126:	; if_then_bb305.split47
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",282
-		MOV.L #_timer, R14
-		MOV.L #00000000H, [R14]
-L127:	; if_then_bb305.split48
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",286
-		BSET #06H, [R14].B
-L128:	; bb323
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",287
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		CMP #07D0H, R14
-		BLTU L128
-L129:	; bb328
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",288
-		MOV.L #_timer, R14
-		MOV.L #00000000H, [R14]
-L130:	; bb328.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",289
-		MOV.L #00000000H, 48H[R0]
-		BRA L137
-L131:	; bb341
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",296
-		MOV.L #_timer, R14
-		MOV.L [R14], R14
-		CMP #2710H, R14
-		BLTU L131
-L132:	; bb346
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",297
-		BSR _BEEP
-L133:	; bb346.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",299
-		MOV.L 48H[R0], R1
-		SUB #08H, R0
-		MOV.L R1, 04H[R0]
-		MOV.L #_L33, R14
-		MOV.L R14, [R0]
-		BSR _SCI_printf
-		ADD #08H, R0
-L134:	; bb346.split49
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",300
-		MOV.W 32H[R0], R1
-		SUB #08H, R0
-		MOV.L R1, 04H[R0]
 		MOV.L #_L34, R14
 		MOV.L R14, [R0]
 		BSR _SCI_printf
 		ADD #08H, R0
-L135:	; bb346.split50
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",301
-		MOV.L #_timer, R14
-		MOV.L #00000000H, [R14]
-L136:	; bb346.split51
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",302
-		MOV.L 48H[R0], R1
-		ADD #01H, R1
-		MOV.L R1, 48H[R0]
-L137:	; bb354.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",293
-		MOV.L #_speed_l, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R1
-		MOV.W R1, 32H[R0]
-L138:	; bb354.split52
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",294
-		MOV.L #_speed_r, R14
-		MOV.L [R14], R14
-		FMUL #447A0000H, R14
-		FMUL #42700000H, R14
-		FDIV #422863ADH, R14
-		FTOI R14, R1
-		MOV.W R1, 30H[R0]
-		BRA L131
-L139:	; switch_clause_bb364
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",344
+		BRA L158
+L98:	; switch_clause_bb217
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",329
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -818,84 +554,84 @@ L139:	; switch_clause_bb364
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L199
-L140:	; if_then_bb379
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",345
+		BLT L158
+L99:	; if_then_bb232
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",330
 		BSR _BEEP
-L141:	; if_then_bb379.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",350
+L100:	; if_then_bb232.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",335
 		MOV.L #00000000H, 14H[R0]
 		MOV.L #00000000H, 18H[R0]
-L142:	; if_then_bb379.split53
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",353
+L101:	; if_then_bb232.split36
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",338
 		MOV.L #_MSP, R14
 		MOV.L #436F0000H, [R14]
-L143:	; if_then_bb379.split54
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",359
+L102:	; if_then_bb232.split37
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",344
 		MOV.L #_KP_L, R14
 		MOV.L #3CA3D70AH, [R14]
-L144:	; if_then_bb379.split55
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",360
+L103:	; if_then_bb232.split38
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",345
 		MOV.L #_KI_L, R14
-		MOV.L #00000000H, [R14]
-L145:	; if_then_bb379.split56
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",361
+		MOV.L #3556BF94H, [R14]
+L104:	; if_then_bb232.split39
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",346
 		MOV.L #_KD_L, R14
 		MOV.L #00000000H, [R14]
-L146:	; if_then_bb379.split57
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",362
+L105:	; if_then_bb232.split40
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",347
 		MOV.L #3ECCCCCDH, 20H[R0]
-L147:	; if_then_bb379.split58
+L106:	; if_then_bb232.split41
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00000000H, R1
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",364
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",349
 		MOV.L R1, 08H[R0]
 		MOV.L R1, 10H[R0]
 		MOV.L R1, 14H[R0]
-L148:	; if_then_bb379.split59
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",366
+L107:	; if_then_bb232.split42
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",351
 		MOV.L #_KP_R, R14
 		MOV.L #3CA3D70AH, [R14]
-L149:	; if_then_bb379.split60
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",367
+L108:	; if_then_bb232.split43
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",352
 		MOV.L #_KI_R, R14
-		MOV.L #00000000H, [R14]
-L150:	; if_then_bb379.split61
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",368
+		MOV.L #3556BF94H, [R14]
+L109:	; if_then_bb232.split44
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",353
 		MOV.L #_KD_R, R14
 		MOV.L #00000000H, [R14]
-L151:	; if_then_bb379.split62
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",369
+L110:	; if_then_bb232.split45
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",354
 		MOV.L #3ECCCCCDH, 24H[R0]
-L152:	; if_then_bb379.split63
+L111:	; if_then_bb232.split46
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00000000H, R1
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",372
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",357
 		MOV.L R1, 04H[R0]
 		MOV.L R1, 0CH[R0]
 		MOV.L R1, 18H[R0]
-L153:	; if_then_bb379.split64
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",373
+L112:	; if_then_bb232.split47
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",358
 		MOV.L #453B8000H, 1CH[R0]
-L154:	; if_then_bb379.split65
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",378
+L113:	; if_then_bb232.split48
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",363
 		MOV.L #_timer, R14
 		MOV.L #00000000H, [R14]
-		BRA L190
-L155:	; bb385
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",380
+		BRA L149
+L114:	; bb238
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",365
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #64H, R14
-		BGTU L163
-L156:	; bb392
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",382
+		BGTU L122
+L115:	; bb245
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",367
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #64H, R14
-		BLTU L156
-L157:	; bb397
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",384
+		BLTU L115
+L116:	; bb250
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",369
 		MOV.L #_speed_l, R14
 		MOV.L [R14], R14
 		FMUL #447A0000H, R14
@@ -903,8 +639,8 @@ L157:	; bb397
 		FDIV #422863ADH, R14
 		FTOI R14, R1
 		MOV.W R1, [R0]
-L158:	; bb397.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",385
+L117:	; bb250.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",370
 		MOV.L #_speed_r, R14
 		MOV.L [R14], R14
 		FMUL #447A0000H, R14
@@ -912,8 +648,8 @@ L158:	; bb397.split
 		FDIV #422863ADH, R14
 		FTOI R14, R1
 		MOV.W R1, 02H[R0]
-L159:	; bb397.split66
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",387
+L118:	; bb250.split49
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",372
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -921,8 +657,8 @@ L159:	; bb397.split66
 		ADD R14, R15
 		MOV.W [R0], R1
 		MOV.L R1, 0BB80H[R15]
-L160:	; bb397.split67
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",388
+L119:	; bb250.split50
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",373
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -931,8 +667,8 @@ L160:	; bb397.split67
 		MOV.L #0008870CH, R14
 		MOVU.W [R14], R14
 		MOV.L R14, 0CB20H[R15]
-L161:	; bb397.split68
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",389
+L120:	; bb250.split51
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",374
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -940,8 +676,8 @@ L161:	; bb397.split68
 		ADD R14, R15
 		MOV.W 02H[R0], R1
 		MOV.L R1, 2EE0H[R15]
-L162:	; bb397.split69
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",390
+L121:	; bb250.split52
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",375
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -950,52 +686,51 @@ L162:	; bb397.split69
 		MOV.L #00088708H, R14
 		MOVU.W [R14], R14
 		MOV.L R14, 3E80H[R15]
-L163:	; if_break_bb424
+L122:	; if_break_bb277
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",394
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",379
 		BSET #06H, [R14].B
-L164:	; if_break_bb424.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",396
+L123:	; if_break_bb277.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",381
 		ITOF [R0].W, R1
 		MOV.L R1, 28H[R0]
-L165:	; if_break_bb424.split70
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",397
+L124:	; if_break_bb277.split53
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",382
 		ITOF 02H[R0].W, R1
 		MOV.L R1, 2CH[R0]
-L166:	; if_break_bb424.split71
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",400
+L125:	; if_break_bb277.split54
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",385
 		MOV.L 1CH[R0], R1
 		FSUB 28H[R0].L, R1
 		MOV.L R1, 14H[R0]
-L167:	; if_break_bb424.split72
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",401
+L126:	; if_break_bb277.split55
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",386
 		MOV.L 1CH[R0], R1
-		BNOT #1FH, R1
-		FSUB 2CH[R0].L, R1
+		FADD 2CH[R0].L, R1
 		MOV.L R1, 18H[R0]
-L168:	; if_break_bb424.split73
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",404
+L127:	; if_break_bb277.split56
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",389
 		MOV.L 10H[R0], R1
 		FADD 14H[R0].L, R1
 		MOV.L R1, 10H[R0]
-L169:	; if_break_bb424.split74
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",405
+L128:	; if_break_bb277.split57
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",390
 		MOV.L 0CH[R0], R1
 		FADD 18H[R0].L, R1
 		MOV.L R1, 0CH[R0]
-L170:	; if_break_bb424.split75
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",408
+L129:	; if_break_bb277.split58
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",393
 		MOV.L 14H[R0], R1
 		FSUB 08H[R0].L, R1
 		MOV.L R1, 08H[R0]
-L171:	; if_break_bb424.split76
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",409
+L130:	; if_break_bb277.split59
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",394
 		MOV.L 18H[R0], R1
 		FSUB 04H[R0].L, R1
 		MOV.L R1, 04H[R0]
-L172:	; if_break_bb424.split77
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",412
+L131:	; if_break_bb277.split60
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",397
 		MOV.L #_MSP, R14
 		MOV.L [R14], R14
 		FMUL 20H[R0].L, R14
@@ -1012,15 +747,15 @@ L172:	; if_break_bb424.split77
 		FMUL 08H[R0].L, R15
 		FADD R15, R14
 		FCMP #4F000000H, R14
-		BLT L174
-L173:	; if_break_bb424.split77
+		BLT L133
+L132:	; if_break_bb277.split60
 		FADD #0CF800000H, R14
-L174:	; if_break_bb424.split77
+L133:	; if_break_bb277.split60
 		FTOI R14, R14
 		MOV.L #0008870CH, R15
 		MOV.W R14, [R15]
-L175:	; if_break_bb424.split78
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",413
+L134:	; if_break_bb277.split61
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",398
 		MOV.L #_MSP, R14
 		MOV.L [R14], R14
 		FMUL 24H[R0].L, R14
@@ -1037,51 +772,51 @@ L175:	; if_break_bb424.split78
 		FMUL 04H[R0].L, R15
 		FADD R15, R14
 		FCMP #4F000000H, R14
-		BLT L177
-L176:	; if_break_bb424.split78
+		BLT L136
+L135:	; if_break_bb277.split61
 		FADD #0CF800000H, R14
-L177:	; if_break_bb424.split78
+L136:	; if_break_bb277.split61
 		FTOI R14, R14
 		MOV.L #00088708H, R15
 		MOV.W R14, [R15]
-L178:	; if_break_bb424.split79
+L137:	; if_break_bb277.split62
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008870CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",416
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",401
 		MOVU.W [R14], R14
 		CMP #0F0H, R14
-		BLT L180
-L179:	; if_then_bb485
+		BLT L139
+L138:	; if_then_bb337
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008870CH, R1
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",417
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",402
 		MOV.W #00EFH, 00H[R1]
-L180:	; if_break_bb486
+L139:	; if_break_bb338
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008870CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",419
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",404
 		MOVU.W [R14], R14
-		BRA L181
-L181:	; if_break_bb493
+		BRA L140
+L140:	; if_break_bb345
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00088708H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",423
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",408
 		MOVU.W [R14], R14
 		CMP #0F0H, R14
-		BLT L183
-L182:	; if_then_bb499
+		BLT L142
+L141:	; if_then_bb351
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00088708H, R1
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",424
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",409
 		MOV.W #00EFH, 00H[R1]
-L183:	; if_break_bb500
+L142:	; if_break_bb352
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00088708H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",426
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",411
 		MOVU.W [R14], R14
-		BRA L184
-L184:	; if_break_bb507
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",431
+		BRA L143
+L143:	; if_break_bb359
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",416
 		MOV.L #_speed_l, R14
 		MOV.L [R14], R14
 		FMUL #447A0000H, R14
@@ -1089,8 +824,8 @@ L184:	; if_break_bb507
 		FDIV #422863ADH, R14
 		FTOI R14, R1
 		MOV.W R1, [R0]
-L185:	; if_break_bb507.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",432
+L144:	; if_break_bb359.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",417
 		MOV.L #_speed_r, R14
 		MOV.L [R14], R14
 		FMUL #447A0000H, R14
@@ -1098,8 +833,8 @@ L185:	; if_break_bb507.split
 		FDIV #422863ADH, R14
 		FTOI R14, R1
 		MOV.W R1, 02H[R0]
-L186:	; if_break_bb507.split80
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",434
+L145:	; if_break_bb359.split63
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",419
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -1107,8 +842,8 @@ L186:	; if_break_bb507.split80
 		ADD R14, R15
 		MOV.W [R0], R1
 		MOV.L R1, 0BB80H[R15]
-L187:	; if_break_bb507.split81
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",435
+L146:	; if_break_bb359.split64
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",420
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -1117,8 +852,8 @@ L187:	; if_break_bb507.split81
 		MOV.L #0008870CH, R14
 		MOVU.W [R14], R14
 		MOV.L R14, 0CB20H[R15]
-L188:	; if_break_bb507.split82
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",436
+L147:	; if_break_bb359.split65
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",421
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -1126,8 +861,8 @@ L188:	; if_break_bb507.split82
 		ADD R14, R15
 		MOV.W 02H[R0], R1
 		MOV.L R1, 2EE0H[R15]
-L189:	; if_break_bb507.split83
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",437
+L148:	; if_break_bb359.split66
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",422
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		SHLL #02H, R14
@@ -1136,43 +871,43 @@ L189:	; if_break_bb507.split83
 		MOV.L #00088708H, R14
 		MOVU.W [R14], R14
 		MOV.L R14, 3E80H[R15]
-L190:	; bb535
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",378
+L149:	; bb387
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",363
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #03E8H, R14
-		BLTU L155
-L191:	; bb540
+		BLTU L114
+L150:	; bb392
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #00088708H, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",441
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",426
 		MOV.W #0000H, [R14]
-L192:	; bb540.split
+L151:	; bb392.split
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008870CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",442
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",427
 		MOV.W #0000H, [R14]
-L193:	; bb540.split84
+L152:	; bb392.split67
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",443
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",428
 		BCLR #06H, [R14].B
-L194:	; bb540.split85
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",444
+L153:	; bb392.split68
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",429
 		MOV.L #_timer, R14
 		MOV.L #00000000H, [R14]
-L195:	; bb542
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",445
+L154:	; bb394
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",430
 		MOV.L #_timer, R14
 		MOV.L [R14], R14
 		CMP #03E8H, R14
-		BLTU L195
-L196:	; bb547
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",446
+		BLTU L154
+L155:	; bb399
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",431
 		BSR _BEEP
-		BRA L199
-L197:	; switch_clause_bb549
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",461
+		BRA L158
+L156:	; switch_clause_bb401
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",446
 		MOV.L #_sen_fr, R14
 		MOV.W [R14], R14
 		MOV.L #_sen_fl, R15
@@ -1182,137 +917,134 @@ L197:	; switch_clause_bb549
 		MOV.L #_sen_l, R15
 		ADD [R15].W, R14
 		CMP #1F41H, R14
-		BLT L199
-L198:	; if_then_bb564
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",462
+		BLT L158
+L157:	; if_then_bb416
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",447
 		BSR _BEEP
-L199:	; bb575
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",579
+L158:	; switch_break_bb
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",564
 		MOV.L #_speed, R14
 		MOV.L #3DCCCCCDH, R15
 		FCMP [R14].L, R15
-		BPZ L207
-L200:	; if_then_bb580
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",580
-		MOV.W 46H[R0], R1
+		BPZ L166
+L159:	; if_then_bb431
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",565
+		MOV.W 32H[R0], R1
 		CMP #0FH, R1
-		BNE L202
-L201:	; if_then_bb586
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",581
-		MOV.W #0001H, 46H[R0]
-		BRA L203
-L202:	; if_else_bb
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",583
-		MOV.W 46H[R0], R1
+		BNE L161
+L160:	; if_then_bb437
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",566
+		MOV.W #0001H, 32H[R0]
+		BRA L162
+L161:	; if_else_bb
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",568
+		MOV.W 32H[R0], R1
 		ADD #01H, R1
-		MOV.W R1, 46H[R0]
-L203:	; if_break_bb589
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",585
-		MOV.L #00000000H, 48H[R0]
-		BRA L205
-L204:	; bb590
+		MOV.W R1, 32H[R0]
+L162:	; if_break_bb440
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",570
+		MOV.L #00000000H, 34H[R0]
+		BRA L164
+L163:	; bb441
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L 48H[R0], R1
+		MOV.L 34H[R0], R1
 		ADD #01H, R1
-		MOV.L R1, 48H[R0]
-L205:	; bb593
-		MOV.L 48H[R0], R1
+		MOV.L R1, 34H[R0]
+L164:	; bb444
+		MOV.L 34H[R0], R1
 		CMP #000F4240H, R1
-		BLTU L204
-L206:	; bb598
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",586
+		BLTU L163
+L165:	; bb449
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",571
 		BSR _BEEP
-L207:	; if_break_bb599
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",589
+L166:	; if_break_bb450
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",574
 		MOV.L #_speed, R14
 		MOV.L [R14], R14
 		FCMP #0BDCCCCCDH, R14
-		BPZ L215
-L208:	; if_then_bb604
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",590
-		MOV.W 46H[R0], R1
+		BPZ L174
+L167:	; if_then_bb455
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",575
+		MOV.W 32H[R0], R1
 		CMP #01H, R1
-		BNE L210
-L209:	; if_then_bb610
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",591
-		MOV.W #000FH, 46H[R0]
-		BRA L211
-L210:	; if_else_bb611
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",593
-		MOV.W 46H[R0], R1
+		BNE L169
+L168:	; if_then_bb461
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",576
+		MOV.W #000FH, 32H[R0]
+		BRA L170
+L169:	; if_else_bb462
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",578
+		MOV.W 32H[R0], R1
 		SUB #01H, R1
-		MOV.W R1, 46H[R0]
-L211:	; if_break_bb614
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",595
-		MOV.L #00000000H, 48H[R0]
-		BRA L213
-L212:	; bb615
+		MOV.W R1, 32H[R0]
+L170:	; if_break_bb465
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",580
+		MOV.L #00000000H, 34H[R0]
+		BRA L172
+L171:	; bb466
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
-		MOV.L 48H[R0], R1
+		MOV.L 34H[R0], R1
 		ADD #01H, R1
-		MOV.L R1, 48H[R0]
-L213:	; bb618
-		MOV.L 48H[R0], R1
+		MOV.L R1, 34H[R0]
+L172:	; bb469
+		MOV.L 34H[R0], R1
 		CMP #000F4240H, R1
-		BLTU L212
-L214:	; bb623
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",596
+		BLTU L171
+L173:	; bb474
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",581
 		BSR _BEEP
-L215:	; if_break_bb624
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",598
-		MOV.W 46H[R0], R1
+L174:	; if_break_bb475
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",583
+		MOV.W 32H[R0], R1
 		BSR _LED
-L216:	; if_break_bb624.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",601
+L175:	; if_break_bb475.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",586
 		BSR _IOex_SWITCH
 		MOV.L #_push_switch, R14
 		MOV.B R1, [R14]
-L217:	; if_break_bb624.split86
+L176:	; if_break_bb475.split69
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		MOV.L #0008C02CH, R14
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",602
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",587
 		BCLR #06H, [R14].B
-L218:	; bb627.split
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",61
+L177:	; bb478.split
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",66
 		MOV.L #_I_tar_ang_vel, R14
 		MOV.L #00000000H, [R14]
-L219:	; bb627.split87
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",62
+L178:	; bb478.split70
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",67
 		MOV.L #_I_ang_vel, R14
 		MOV.L #00000000H, [R14]
-L220:	; bb627.split88
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",63
+L179:	; bb478.split71
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",68
 		MOV.L #_I_tar_speed, R14
 		MOV.L #00000000H, [R14]
-L221:	; bb627.split89
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",64
+L180:	; bb478.split72
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",69
 		MOV.L #_I_speed, R14
 		MOV.L #00000000H, [R14]
-L222:	; bb627.split90
-		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",66
-		MOV.W 46H[R0], R1
+L181:	; bb478.split73
+		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",71
+		MOV.W 32H[R0], R1
 		CMP #01H, R1
-		BEQ L43
-L223:	; bb627.split90
+		BEQ L42
+L182:	; bb478.split73
 		.LINE  "C:\Users\kouta\Desktop\micromouse\HM-StarterKit_kennkyuu\Sample_software\test0\HM_StarterKit.c",0
 		CMP #02H, R1
-		BEQ L71
-L224:	; bb627.split90
+		BEQ L70
+L183:	; bb478.split73
 		CMP #03H, R1
-		BEQ L98
-L225:	; bb627.split90
+		BEQ L82
+L184:	; bb478.split73
 		CMP #04H, R1
-		BEQ L108
-L226:	; bb627.split90
-		CMP #05H, R1
-		BEQ L114
-L227:	; bb627.split90
+		BEQ L92
+L185:	; bb478.split73
 		CMP #06H, R1
-		BEQ L139
-L228:	; bb627.split90
+		BEQ L98
+L186:	; bb478.split73
 		CMP #07H, R1
-		BEQ L197
-		BRA L199
+		BEQ L156
+		BRA L158
 		.SECTION	L,ROMDATA,ALIGN=4
 _L10:
 		.byte	"sen_r.value: %d"
@@ -1380,18 +1112,15 @@ _L30:
 		.byte	"[0;0H"
 		.byte	00H
 _L31:
-		.byte	"V = %d[mV]"
-		.byte	0AH,0DH,00H
-_L32:
 		.byte	"time[msec],speed_l[m/s],speed_r[m/s]"
 		.byte	0AH,0DH,00H
-_L33:
+_L32:
 		.byte	"%d,"
 		.byte	00H
-_L34:
+_L33:
 		.byte	"%d"
 		.byte	0AH,0DH,00H
-_L35:
+_L34:
 		.byte	"timer=0:%d"
 		.byte	0AH,0DH,00H
 		.END

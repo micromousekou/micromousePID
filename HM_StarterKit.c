@@ -24,6 +24,11 @@
 #include "fast.h"
 #include "search.h"
 
+extern long	log2[1000];
+extern long	log3[1000];
+extern long	log4[1000];
+extern long	log5[1000];
+
 #ifdef __cplusplus
 //#include <ios>                        // Remove the comment when you use ios
 //_SINT ios_base::Init::init_cnt;       // Remove the comment when you use ios
@@ -140,51 +145,27 @@ void main(void)
 				if(sen_fr.value + sen_fl.value + sen_r.value + sen_l.value > SEN_DECISION * 4){
 					BEEP();
 					
+					//MOT_OUT_R=0; 
+					//MOT_OUT_L=0;
+									
+					//MOT_POWER_ON;
+					PID_ON=1;
+					timer=0;
 					
-					//電圧確認-------------------------------------
-					int V;
-					V=S12AD.ADDR9*3.3*2/4.096;
-					SCI_printf("V = %d[mV]\n\r",V);
-					
-					//---------------------------------------------
-				
-					//モータの速度(出力)設定
-					int motorsp;
-					motorsp=239;//モータ速度
-
-					MOT_OUT_R=motorsp*0.5; //最大値は239  0.55
-					MOT_OUT_L=motorsp*0.5; //最大値は239  0.4
-					
-					//MOT_CWCCW_R = MOT_R_FORWARD;
-					
-					timer=0; //timerリセット
-					
-					//モータ速度計測---------------------------------------
-					for (timer=0; timer<1000;timer){
-					
-						if(timer<101){    //100ms待機時間
-						
-							while(timer<100);
-						log[12][timer] = (short)(speed_l*1000*60/(TIRE_DIAMETER*PI));//単位は[rpm]
-						log[13][timer] = (short)(speed_r*1000*60/(TIRE_DIAMETER*PI));
-						}
-						
-						MOT_POWER_ON; //モータ回転開始＆回転時のデータ取得開始
-						log[12][timer] = (short)(speed_l*1000*60/(TIRE_DIAMETER*PI));//単位は[rpm]
-						log[13][timer] = (short)(speed_r*1000*60/(TIRE_DIAMETER*PI));
-					}
-					//------------------------------------------------------
-					
+					while(timer<1000);
+									
 					//モータ停止
 					MOT_OUT_R=0; 
 					MOT_OUT_L=0; 
 					MOT_POWER_OFF;
+					//SCI_printf("logcount: %d\n\r",log_cmt);
+				
 					timer=0;
 					while(timer<1000);
 					BEEP();
-					break;
-					
+						
 				}
+				PID_ON=0;
 				break;
 				
 			case 3:
@@ -204,20 +185,22 @@ void main(void)
 				//センサーの前に手をかざしてスタート
 				if(sen_fr.value + sen_fl.value + sen_r.value + sen_l.value > SEN_DECISION * 4){
 					BEEP();
+					//SCI_printf("logcount: %d\n\r",log_cmt);
 					SCI_printf("time[msec],speed_l[m/s],speed_r[m/s]\n\r");
 					
 					for(i = 0; i <1000; i++){
 						
-						SCI_printf("%d,",i);              //time[msec]
-						SCI_printf("%d,",log[12][i]);     //speed_L/100[m/s]
-						SCI_printf("%d,",log[13][i]);
-						SCI_printf("%d,",log[3][i]);
-						SCI_printf("%d\n\r",log[4][i]);  //speed_R/100[m/s]
+						SCI_printf("%d,",i);            //time[msec]
+						SCI_printf("%d,",log2[i]);	//speed_L/100[m/s]
+						SCI_printf("%d,",log3[i]);
+						SCI_printf("%d,",log4[i]);
+						SCI_printf("%d\n\r",log5[i]);	//speed_R/100[m/s]
 			
 					}
 					
-				break;
+				
 				}
+				break;
 				
 			case 4:
 				/****************************************
@@ -257,12 +240,12 @@ void main(void)
 				*    モータ回転数取得用プログラム(非接触計を用いて)  *
 				*****************************************************/
 				
-				
+				/*
 				//センサーの前に手をかざしてスタート
 				if(sen_fr.value + sen_fl.value + sen_r.value + sen_l.value > SEN_DECISION * 4){
 					BEEP();
 					
-					
+					/*
 					//電圧確認-------------------------------------
 					int V;
 					V=S12AD.ADDR9*3.3*2/4.096;
@@ -278,6 +261,7 @@ void main(void)
 					MOT_OUT_L=motorsp*0.55; //最大値は239
 					
 					MOT_CWCCW_R = MOT_R_FORWARD;
+					
 					
 					timer=0; //timerリセット
 					
@@ -310,9 +294,9 @@ void main(void)
 					timer=0;
 					while(timer<1000);
 					BEEP();
-				}
-				break;
-						
+				
+		}*/
+				break;		
 				
 			case 6:
 				/****************************************
@@ -340,6 +324,7 @@ void main(void)
 				       --------------------------
 				*******************************************/
 				
+				
 				//センサーの前に手をかざしてスタート
 				if(sen_fr.value + sen_fl.value + sen_r.value + sen_l.value > SEN_DECISION * 4){
 					BEEP();
@@ -357,14 +342,14 @@ void main(void)
 										
 					//変更する必要のあるパラメータ左モータ-----------------------
 					KP_L = 0.02;//	0.02; 	//比例ゲイン左設定
-					KI_L = 0;//0.0008/1000;//1/1000; 	//積分ゲイン左設定
+					KI_L = 0.0008/1000;	//積分ゲイン左設定
 					KD_L = 0;//1*1000; 	//微分ゲイン左設定
 					trim_L = 0.4;//0.379; 	//左モータトリム設定
 					
 					Perr_L = Ierr_L = Derr_L = 0;
 					//変更する必要のあるパラメータ右モータ-----------------------
 					KP_R = 0.02;//0.01; 	//比例ゲイン右設定
-					KI_R = 0;//0.0008/1000;// 1/1000; 	//積分ゲイン右設定
+					KI_R = 0.0008/1000;	//積分ゲイン右設定
 					KD_R = 0;//1*1000; 	//微分ゲイン右設定
 					trim_R = 0.4;//0.379; 	//右モータトリム設定
 					
@@ -375,7 +360,7 @@ void main(void)
 					// ---------------------------------------------------------------------------------------------------
 					
 					//モータ制御---------------------------------------
-					for (timer=0; timer<1000;timer){
+					for (timer=0; timer<1000; timer){
 					
 						if(timer<101){    //100ms待機時間
 						
@@ -398,7 +383,7 @@ void main(void)
 						
 						//比例要素-----(目標値 - 出力)
 						Perr_L = targetV-output_L;
-						Perr_R = -1*targetV-output_R;
+						Perr_R = targetV+output_R;
 						
 						//積分要素-----(今までのエラー + 現在のエラー)
 						Ierr_L = Ierr_L+Perr_L;

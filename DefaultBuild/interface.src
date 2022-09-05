@@ -1,4 +1,4 @@
-;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  01-Aug-2022 11:41:32
+;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  05-Sep-2022 10:29:06
 
 ;*** CPU TYPE ***
 
@@ -9,13 +9,11 @@
 ;HM_StarterKit.c
 ;init.c
 ;spi.c
-;interrupt.c
-;glob_var.c
 ;run.c
 ;interface.c
-;search.c
 ;DataFlash.c
 ;fast.c
+;i2c.c
 ;adjust.c
 ;-isa=rxv1
 ;-fpu

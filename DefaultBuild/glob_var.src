@@ -1,4 +1,4 @@
-;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  01-Aug-2022 11:41:32
+;RX Family C/C++ Compiler (V3.04.00 [24 Nov 2021])  05-Sep-2022 09:58:59
 
 ;*** CPU TYPE ***
 
@@ -63,6 +63,8 @@
 		.glb	_V_r
 		.glb	_V_l
 		.glb	_MSP
+		.glb	_rpm_r
+		.glb	_rpm_l
 		.glb	_angle
 		.glb	_locate_l
 		.glb	_locate_r
@@ -95,7 +97,9 @@
 		.glb	_KI_R
 		.glb	_KD_L
 		.glb	_KD_R
+		.glb	_PID_ON
 		.glb	_push_switch
+		.glb	_Map
 		.SECTION	B,DATA,ALIGN=4
 _sen_r:
 		.blkl	6
@@ -161,6 +165,10 @@ _V_l:
 		.blkl	1
 _MSP:
 		.blkl	1
+_rpm_r:
+		.blkl	1
+_rpm_l:
+		.blkl	1
 _angle:
 		.blkl	1
 _locate_l:
@@ -194,7 +202,7 @@ _len_mouse:
 _len_target:
 		.blkl	1
 _log:
-		.blkl	14000
+		.blkl	1000
 _log_timer:
 		.blkl	1
 _log_flag:
@@ -223,6 +231,8 @@ _KD_L:
 		.blkl	1
 _KD_R:
 		.blkl	1
+_PID_ON:
+		.blkl	1
 		.SECTION	B_1,DATA
 _wall:
 		.blkb	1024
@@ -232,4 +242,6 @@ _TURN_DIR:
 		.blkb	1
 _push_switch:
 		.blkb	1
+_Map:
+		.blkb	256
 		.END

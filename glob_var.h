@@ -49,6 +49,8 @@ GLOBAL float			V_r;					//右モータの出力電圧	[V]
 GLOBAL float			V_l;					//左モータの出力電圧	[V]
 
 GLOBAL float			MSP;					//モータの最大パルス出力	
+GLOBAL float			rpm_r;					//現在の右タイヤ回転数	[rpm(min-1)]
+GLOBAL float			rpm_l;					//現在の右タイヤ回転数	[rpm(min-1)]
 
 //エンコーダ角度系のグローバル変数
 GLOBAL unsigned int		angle;					//現在の車軸角度	[deg]
@@ -77,9 +79,10 @@ GLOBAL float			len_mouse;				//マウスの移動距離		[mm]
 GLOBAL float			len_target;				//マウスの目標移動距離		[mm]
 
 //ログ用のグローバル変数
-GLOBAL long			log[14][LOG_CNT];			//ログ用の配列
+GLOBAL long			log[1][LOG_CNT];			//ログ用の配列log[13][LOG_CNT];
 GLOBAL long			log_timer;				//ログ取りようのタイマ
-GLOBAL int			log_flag;				//ログ取得のタイミング用
+GLOBAL int			log_flag;				//ログ取得のタイミング用]
+//GLOBAL int			log_cmt;				//ログカウント用
 
 //GLOBAL int			memory[3][LOG_CNT];
 
@@ -102,6 +105,10 @@ GLOBAL float			KI_L;					//積分ゲイン左
 GLOBAL float			KI_R;					//積分ゲイン右
 GLOBAL float			KD_L;					//微分ゲイン左
 GLOBAL float			KD_R;					//微分ゲイン右
+GLOBAL int			PID_ON;					//PID制御のON_OFF
 
 //UI用グローバル変数
 GLOBAL unsigned char		push_switch;				//スイッチが押されたかどうかの変数
+
+//迷路系・マップ系
+GLOBAL unsigned char Map[16][16];					//マップ配列用 [y][x]
